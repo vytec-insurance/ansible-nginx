@@ -1,0 +1,27 @@
+---
+- name: add repo
+  apt_repository:
+    repo: "ppa:nginx/stable"
+- name: install nginx package
+  apt:
+    name: "nginx"
+    state: latest
+- name: Create a tutorial directory if it does not exist
+  file:
+    path: /var/www/tutorial
+    state: directory
+    mode: '0755'   
+- name: copy index.html
+  copy:
+    src: index.html
+    dest:  /var/www/tutorial/index.html
+  notify: restart the nginx service  
+- name: copy virtualhost
+  copy:
+    src: virtualhost
+    dest:  /etc/nginx/sites-enabled/tutorial
+  notify: restart the nginx service  
+- name: start the nginx service
+  service: 
+    name: "nginx"
+    state: started
