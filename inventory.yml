@@ -6,7 +6,7 @@ all:
   children:
     nginx-server:
       hosts:
-        172.31.36.6:
+        192.168.32.10:
     dbservers:
       hosts:
         one.example.com:
